@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<hmtl lang="pt-br">
+
+    <body>
+        <script>
+            //Exerc. 1)---------------------------------------------------------------------------------------------
+            function CalculaIndice() {
+                let Ind = 13;
+                let Soma = 0
+                let k = 0;
+                while (k < Ind) {
+                    Soma = Soma + k;
+                    k++;
+                }
+                return Soma;
+            }
+
+            //Exerc. 2)---------------------------------------------------------------------------------------------
+            function fibonacci(numero) {
+                let fib = [0, 1];
+
+                while (fib[fib.length - 1] < numero) {
+                    const nextFib = fib[fib.length - 1] + fib[fib.length - 2];
+                    fib.push(nextFib);
+                }
+
+                return fib;
+            }
+
+            function pertenceAFibonacci(numero) {
+                const seqFibo = fibonacci(numero);
+                if (seqFibo.includes(numero)) {
+                    return `O número ${numero} pertence à sequência de Fibonacci.`;
+                } else {
+                    return `O número ${numero} NÃO pertence à sequência de Fibonacci.`;
+                }
+            }
+
+            //Exerc. 3)---------------------------------------------------------------------------------------------
+
+            const faturamento = [
+                { "dia": 1, "valor": 22174.1664 },
+                { "dia": 2, "valor": 24537.6698 },
+                { "dia": 3, "valor": 26139.6134 },
+                { "dia": 4, "valor": 0.0 },
+                { "dia": 5, "valor": 0.0 },
+                { "dia": 6, "valor": 26742.6612 },
+                { "dia": 7, "valor": 0.0 },
+                { "dia": 8, "valor": 42889.2258 },
+                { "dia": 9, "valor": 46251.174 },
+                { "dia": 10, "valor": 11191.4722 },
+                { "dia": 11, "valor": 0.0 },
+                { "dia": 12, "valor": 0.0 },
+                { "dia": 13, "valor": 3847.4823 },
+                { "dia": 14, "valor": 373.7838 },
+                { "dia": 15, "valor": 2659.7563 },
+                { "dia": 16, "valor": 48924.2448 },
+                { "dia": 17, "valor": 18419.2614 },
+                { "dia": 18, "valor": 0.0 },
+                { "dia": 19, "valor": 0.0 },
+                { "dia": 20, "valor": 35240.1826 },
+                { "dia": 21, "valor": 43829.1667 },
+                { "dia": 22, "valor": 18235.6852 },
+                { "dia": 23, "valor": 4355.0662 },
+                { "dia": 24, "valor": 13327.1025 },
+                { "dia": 25, "valor": 0.0 },
+                { "dia": 26, "valor": 0.0 },
+                { "dia": 27, "valor": 25681.8318 },
+                { "dia": 28, "valor": 1718.1221 },
+                { "dia": 29, "valor": 13220.495 },
+                { "dia": 30, "valor": 8414.61 }
+            ];
+
+            function calcularFaturamento(faturamento) {
+                const faturamentoValidos = faturamento.filter(dia => dia.valor > 0.0);
+                const menorFaturamento = Math.min(...faturamentoValidos.map(dia => dia.valor));
+                const maiorFaturamento = Math.max(...faturamentoValidos.map(dia => dia.valor));
+                const somaFaturamento = faturamentoValidos.reduce((acc, dia) => acc + dia.valor, 0);
+                const mediaFaturamento = somaFaturamento / faturamentoValidos.length;
+                const diasAcimaDaMedia = faturamentoValidos.filter(dia => dia.valor > mediaFaturamento).length;
+
+                return {
+                    menorFaturamento,
+                    maiorFaturamento,
+                    mediaFaturamento,
+                    diasAcimaDaMedia
+                };
+            }
+
+            const resultado = calcularFaturamento(faturamento);
+
+
+            //Exerc. 4)---------------------------------------------------------------------------------------------
+
+
+            const faturamentoPorEstado = {
+                SP: 67836.43,
+                RJ: 36678.66,
+                MG: 29229.88,
+                ES: 27165.48,
+                Outros: 19849.53
+            };
+
+            function calcularFaturamentoTotal(faturamentoPorEstado) {
+                return Object.values(faturamentoPorEstado).reduce((acc, valor) => acc + valor, 0);
+            }
+
+            function calcularPercentuais(faturamentoPorEstado) {
+                const faturamentoTotal = calcularFaturamentoTotal(faturamentoPorEstado);
+
+                const percentuais = {};
+                for (const estado in faturamentoPorEstado) {
+                    percentuais[estado] = ((faturamentoPorEstado[estado] / faturamentoTotal) * 100).toFixed(2);
+                }
+
+                return percentuais;
+            }
+
+            const percentuais = calcularPercentuais(faturamentoPorEstado);
+
+            //Exerc. 5)---------------------------------------------------------------------------------------------
+
+
+            function inverterString(str) {
+                let strInvertida = '';
+
+                for (let i = str.length - 1; i >= 0; i--) {
+                    strInvertida += str[i]; 
+                }
+
+                return strInvertida;
+            }
+
+            const minhaString = "Teste Tecnico";
+
+            //Resultados:
+
+            console.log(pertenceAFibonacci(8));
+            console.log(CalculaIndice())
+            console.log(`Menor faturamento: R$ ${resultado.menorFaturamento}`);
+            console.log(`Maior faturamento: R$ ${resultado.maiorFaturamento}`);
+            console.log(`Média de faturamento: R$ ${resultado.mediaFaturamento}`);
+            console.log(`Número de dias com faturamento superior à média: ${resultado.diasAcimaDaMedia}`);
+            console.log("Percentuais de representação por estado:");
+            for (const estado in percentuais) {
+                console.log(`${estado}: ${percentuais[estado]}%`);
+            }
+            console.log("String original:", minhaString);
+            console.log("String invertida:", inverterString(minhaString));
+        </script>
+    </body>
+</hmtl>
